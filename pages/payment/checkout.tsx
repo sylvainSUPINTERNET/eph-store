@@ -157,6 +157,7 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
                                         onApprove={ (data, actions):Promise<any> => {
                                             console.log(data);
                                             console.log(actions);
+                                            
                                             setPaySuccess(true);
                                             setCount(1);
                                             return new Promise( (resolve, reject) => {
