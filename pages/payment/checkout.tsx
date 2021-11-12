@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 
 
-const CheckoutPaypal = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
+const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: any, env:any }) => {
     let [count, setCount] = useState(1);
     let [stockError, setStockError] = useState("Limite de stock atteint.");
     let [isOutOfStock, setIsOutOfStock] = useState(false);
@@ -73,7 +73,7 @@ const CheckoutPaypal = ({ task, storeTarget }: { task: any, storeTarget: any }) 
     // }
 
     const paypalOptions = {
-        "client-id": `${process.env.PAYPAL_CLIENTID}`,
+        "client-id": `${env.PAYPAL_CLIENTID}`,
         currency: "EUR",
         intent: "capture"
     }
@@ -198,6 +198,9 @@ export async function getStaticProps() {
     // Get external data from the file system, API, DB, etc.
     const data = await (await fetch('https://jsonplaceholder.typicode.com/todos/1')).json()
 
+    const env = {
+        PAYPAL_CLIENTID: process.env.PAYPAL_CLIENTID
+    };
     // The value of the `props` key will be
     //  passed to the `Home` component
 
@@ -207,6 +210,7 @@ export async function getStaticProps() {
     storeName[0].toUpperCase()
     return {
         props: {
+            env,
             storeTarget: {
                 "brandName": storeName.charAt(0).toUpperCase() + storeName.slice(1),
                 "pageTitle1": "Big title ONE",
