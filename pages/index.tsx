@@ -137,13 +137,13 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500 h-20 p-5 text-center text-white">
+      <div className="bg-gradient-to-r from-purple-600 via-red-500 to-pink-500 h-20 p-5 text-center text-white">
         <div className="flex">
           <div className="flex-1 m-1">           
           
            <p className="font-bold">sylvain.joly00@gmail.com</p>
 
-            <a href="/CGU">CGU</a>
+            <a href="/CGU" className="mt-2">CGU</a>
           </div>
         </div>
       </div>

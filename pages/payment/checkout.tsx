@@ -10,8 +10,8 @@ import { BsPlus } from "react-icons/bs";
 const CheckoutPaypal = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
     let [count, setCount] = useState(1);
     let [stockError, setStockError] = useState("Limite de stock atteint.");
-    let [isOutOfStock, setIsOutOfStock] = useState(false)
-
+    let [isOutOfStock, setIsOutOfStock] = useState(false);
+    let [paySuccess, setPaySuccess] = useState(false);
 
     let computePrice = (price: number): number => {
         return +((price * count).toFixed(2));
@@ -53,7 +53,7 @@ const CheckoutPaypal = ({ task, storeTarget }: { task: any, storeTarget: any }) 
         if (window) {
 
         }
-    }, [count, isOutOfStock])
+    }, [count, isOutOfStock, paySuccess])
 
     // const getRealCount = () => {
     //     let currentCount = sessionStorage.getItem("cartPro");
@@ -85,7 +85,18 @@ const CheckoutPaypal = ({ task, storeTarget }: { task: any, storeTarget: any }) 
                 <a className="mt-10 ml-5" href="/"><AiOutlineArrowLeft /> Acceuil</a>
             </div>
 
-            <div className="text-center mt-10">
+            { paySuccess === true &&
+                <div className="flex justify-center mt-60">
+                    <div className="text-center font-bold text-4xl">
+                        <p>Un mail de confirmation vous a été envoyé</p>
+                        <p>Merci pour votre confiance !</p>
+                    </div>
+                </div>
+            }
+
+            {
+                paySuccess === false && 
+                <div className="text-center mt-10">
                 <h1 className="text-center text-4xl mt-10">Commander</h1>
                 <div className="flex justify-center ">
                     <div className="shadow-lg p-5 max-w-xl rounded mt-5 mb-5 flex-1 ">
@@ -138,6 +149,18 @@ const CheckoutPaypal = ({ task, storeTarget }: { task: any, storeTarget: any }) 
                                                 ],
                                             });
                                         }}
+                                        onApprove={ (data, actions):Promise<any> => {
+                                            console.log(data);
+                                            console.log(actions);
+                                            setPaySuccess(true);
+                                            setCount(1);
+                                            return new Promise( (resolve, reject) => {
+                                                resolve("ok");
+                                            })
+                                        }}
+                                        onError={ (err) => {
+                                            alert("Une erreur est survenue lors de votre paiement, veuillez réessayer plus tard.")
+                                        }}
                                     />
                                    <table border={"0"} cellpadding="10" cellspacing="0" align="center"><tbody><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/fr/webapps/mpp/paypal-popup" title="PayPal payment type support" onclick="javascript:window.open('https://www.paypal.com/fr/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/logo_paypal_paiements_securises_fr.jpg" border="0" alt="PayPal Acceptance Mark" /></a></td></tr></tbody></table>
                                    <table border="0" cellpadding="10" cellspacing="0" align="center"><tbody><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/fr/webapps/mpp/paypal-popup" title="PayPal Comment Ca Marche" onclick="javascript:window.open('https://www.paypal.com/fr/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/logo_paypal_securise_fr.png" border="0" alt="Securise par PayPal" /></a><div style={{"textAlign" :"center"}}><a href="https://www.paypal.com/fr/webapps/mpp/why" target="_blank"><font size="2" face="Arial" color="#0079CD"></font></a></div></td></tr></tbody></table>
@@ -153,6 +176,9 @@ const CheckoutPaypal = ({ task, storeTarget }: { task: any, storeTarget: any }) 
 
 
             </div>
+            }
+
+            
         </div>
     )
 };
