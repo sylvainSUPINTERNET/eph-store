@@ -104,7 +104,10 @@ const CheckoutPaypal = ({ task, storeTarget }: { task: any, storeTarget: any }) 
                     <div className="shadow-lg p-5 max-w-xl rounded mt-5 mb-5 flex-1 ">
                         <p className="ml-3 text-base mb-5 mt-3 font-bold ">{storeTarget.productName}</p>
                         <div className="flex  shadow-lg p-5">
-                            <Image src={storeTarget.pageMainPics[0]} className="w-20 rounded shadow-lg"/>
+                            <Image loader={({src, width, quality}) => {
+                                return `${storeTarget.pageMainPics[0]}`
+                            }} 
+                            src={"product.png"} className="rounded shadow-lg" height={256} width={256}/>
                             <p className="ml-3 text-base">{storeTarget.checkoutDescription}</p>
                         </div>
                         <div className="shadow-lg p-5">

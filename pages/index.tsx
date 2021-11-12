@@ -11,8 +11,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link'
 import Image from 'next/image'
 
+//@ts-ignore
+const myLoader = ({ src, width, quality }) => {
+  return `${storeTarget.pageMainPics[0]}`
+}
+
 
 const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
+
 
   let [countCart, setCountCart] = useState(0);
 
@@ -117,7 +123,14 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
             return (
               <div className="flex-1 p-4 container mx-auto text-justify mb-5 rounded" key={`${i}`}>
                 <div className="flex mt-3 justify-center bg-gradient-to-b from-purple-400 via-pink-500 to-red-500 to-purple rounded-t">
-                  <Image className="w-80 mt-10 rounded-full mb-10" src={storeTarget.pageMainPics[0]} />
+                  
+                  <div className="p-5">
+                  <Image loader={({src, width, quality}) => {
+                    return `${storeTarget.pageMainPics[0]}`
+                  }} alt="Main product picture"
+                  className="mt-10 rounded-full mb-10" src={"main.png"} width={400} height={400}/>
+                  </div>
+
                 </div>
                 <div className="bg-white text-black p-5 rounded-b shadow-lg">
                   <h3 className="text-2xl font-bold">{point.title}</h3>
