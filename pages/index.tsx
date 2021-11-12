@@ -47,6 +47,7 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
       <ToastContainer />
       <header className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500  h-20 p-5">
         <nav className="flex justify-between">
+          
           <div className="ml-8 text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl flex"><FaPaw className="mr-1 mt-0.5" /> {storeTarget.brandName}</div>
           {/* <span className="relative inline-block mr-5 mt-2 cursor-pointer" onClick={ ev => window.location.href = "/payment/checkout"}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
