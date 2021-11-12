@@ -98,14 +98,14 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
           {/* <button className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Type : </button> */}
         </div>
         <div className="container mx-auto">
-        <p className="mb-5 text-4xl">{storeTarget.pageTitle1}</p>
+        <p className="mb-5 text-4xl mt-10">{storeTarget.pageTitle1}</p>
         <p className="mb-5 text-lg justify-content">{storeTarget.mainDescription}</p>
         </div>
 
-        <div className="flex mt-3 mb-3 justify-center">
+        <div className="flex mt-3 mb-3 justify-center shadow-lg">
           <a className="m-2 
           bg-gradient-to-r from-red-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500
-          text-white font-bold py-5 px-4 rounded text-4xl mt-5 mb-5 shadow-lg" href="/payment/checkout" >Je commande</a>
+          text-white font-bold py-5 px-4 rounded text-4xl mt-5 mb-10 " href="/payment/checkout" >Je commande</a>
           {/* <button className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Type : </button> */}
         </div>
         {
