@@ -2,8 +2,8 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { BsPlus } from "react-icons/bs";
-
-
+import Link from 'next/link'
+import Image from 'next/image'
 
 
 
@@ -82,7 +82,9 @@ const CheckoutPaypal = ({ task, storeTarget }: { task: any, storeTarget: any }) 
 
         <div>
             <div className="flex">
-                <a className="mt-10 ml-5" href="/"><AiOutlineArrowLeft /> Acceuil</a>
+                <Link href="/">
+                    <a className="mt-10 ml-5"><AiOutlineArrowLeft /> Acceuil</a>
+                </Link>
             </div>
 
             { paySuccess === true &&
@@ -102,7 +104,7 @@ const CheckoutPaypal = ({ task, storeTarget }: { task: any, storeTarget: any }) 
                     <div className="shadow-lg p-5 max-w-xl rounded mt-5 mb-5 flex-1 ">
                         <p className="ml-3 text-base mb-5 mt-3 font-bold ">{storeTarget.productName}</p>
                         <div className="flex  shadow-lg p-5">
-                            <img src={storeTarget.pageMainPics[0]} className="w-20 rounded shadow-lg"></img>
+                            <Image src={storeTarget.pageMainPics[0]} className="w-20 rounded shadow-lg"/>
                             <p className="ml-3 text-base">{storeTarget.checkoutDescription}</p>
                         </div>
                         <div className="shadow-lg p-5">

@@ -10,6 +10,7 @@ import { url } from 'inspector';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link'
+import Image from 'next/image'
 
 
 const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
@@ -48,7 +49,7 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
       <ToastContainer />
       <header className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500  h-20 p-5">
         <nav className="flex justify-between">
-          
+
           <div className="ml-8 text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl flex"><FaPaw className="mr-1 mt-0.5" /> {storeTarget.brandName}</div>
           {/* <span className="relative inline-block mr-5 mt-2 cursor-pointer" onClick={ ev => window.location.href = "/payment/checkout"}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -99,22 +100,25 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
           {/* <button className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Type : </button> */}
         </div>
         <div className="container mx-auto">
-        <p className="mb-5 text-4xl mt-10">{storeTarget.pageTitle1}</p>
-        <p className="mb-5 text-lg justify-content">{storeTarget.mainDescription}</p>
+          <p className="mb-5 text-4xl mt-10">{storeTarget.pageTitle1}</p>
+          <p className="mb-5 text-lg justify-content">{storeTarget.mainDescription}</p>
         </div>
 
         <div className="flex mt-3 mb-3 justify-center shadow-lg">
-          <button className="m-2 
+          <Link href="/payment/checkout">
+            <a className="m-2 
           bg-gradient-to-r from-red-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500
-          text-white font-bold py-5 px-4 rounded text-4xl mt-5 mb-10 " onClick={ ev => window.location.href = "/payment/checkout"}>Je commande</button>
+          text-white font-bold py-5 px-4 rounded text-4xl mt-5 mb-10 ">Je commande</a>
+          </Link>
+
           {/* <button className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Type : </button> */}
         </div>
         {
-          storeTarget.points.map((point: any) => {
+          storeTarget.points.map((point: any, i:number) => {
             return (
-              <div className="flex-1 p-4 container mx-auto text-justify mb-5 rounded">
+              <div className="flex-1 p-4 container mx-auto text-justify mb-5 rounded" key={`${i}`}>
                 <div className="flex mt-3 justify-center bg-gradient-to-b from-purple-400 via-pink-500 to-red-500 to-purple rounded-t">
-                  <img className="w-80 mt-10 rounded-full mb-10" src={storeTarget.pageMainPics[0]} />
+                  <Image className="w-80 mt-10 rounded-full mb-10" src={storeTarget.pageMainPics[0]} />
                 </div>
                 <div className="bg-white text-black p-5 rounded-b shadow-lg">
                   <h3 className="text-2xl font-bold">{point.title}</h3>
@@ -131,7 +135,7 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
             )
           })
         }
-        
+
         <div className="flex mt-3 mb-3 justify-center">
           {/* <a className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full text-xl mt-5 mb-5" href="/payment/checkout" >Je commande</a> */}
           {/* <button className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Type : </button> */}
@@ -140,11 +144,13 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
 
       <div className="bg-gradient-to-r from-purple-600 via-red-500 to-pink-500 h-20 p-5 text-center text-white">
         <div className="flex">
-          <div className="flex-1 m-1">           
-          
-           <p className="font-bold">sylvain.joly00@gmail.com</p>
+          <div className="flex-1 m-1">
 
-            <Link href="/CGU">CGU</Link>
+            <p className="font-bold">sylvain.joly00@gmail.com</p>
+
+            <Link href="/CGU">
+              <a href="/CGU" className="mt-2">CGU</a>
+            </Link>
           </div>
         </div>
       </div>
