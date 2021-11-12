@@ -73,7 +73,7 @@ const CheckoutPaypal = ({ task, storeTarget }: { task: any, storeTarget: any }) 
     // }
 
     const paypalOptions = {
-        "client-id": "ASqW17zJwkIfvhjpKBRUlhVy_YANm-zfHgzBoI5qlE8tquKzZRVgzg2ialIJ5rolEh-qSsrbKsQBp2Ih",
+        "client-id": `${process.env.PAYPAL_CLIENTID}`,
         currency: "EUR",
         intent: "capture"
     }
