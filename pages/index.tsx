@@ -11,12 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link'
 import Image from 'next/image'
 
-//@ts-ignore
-const myLoader = ({ src, width, quality }) => {
-  return `${storeTarget.pageMainPics[0]}`
-}
-
-
 const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
 
 
