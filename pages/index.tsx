@@ -104,9 +104,9 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
         </div>
 
         <div className="flex mt-3 mb-3 justify-center shadow-lg">
-          <Link className="m-2 
+          <button className="m-2 
           bg-gradient-to-r from-red-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500
-          text-white font-bold py-5 px-4 rounded text-4xl mt-5 mb-10 " href="/payment/checkout" >Je commande</Link>
+          text-white font-bold py-5 px-4 rounded text-4xl mt-5 mb-10 " onClick={ ev => window.location.href = "/payment/checkout"}>Je commande</button>
           {/* <button className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Type : </button> */}
         </div>
         {
