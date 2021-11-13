@@ -1,5 +1,5 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { BsPlus } from "react-icons/bs";
 import Link from 'next/link'
@@ -48,12 +48,44 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
             setCount(tmp)
         }
     }
-
     useEffect(() => {
         if (window) {
 
         }
-    }, [count, isOutOfStock, paySuccess])
+    }, [count])
+
+    
+    // let createOrder = (data:any, actions:any) => {
+    //     console.log("xd",count);
+    //     return actions.order.create({
+    //         purchase_units: [
+    //             {
+    //                 amount: {
+    //                     value: `${computePriceTotal(storeTarget.productPrice)}`,
+    //                 },
+    //             },
+    //         ],
+    //     });
+    // }
+
+    
+    // use useCallback to only update the value of `createOrder` when the `amount` changes 
+    const createOrder = useCallback((data:any, actions:any) => {
+        return actions.order
+            .create({
+                purchase_units: [
+                    {
+                        amount: {
+                            value: `${computePriceTotal(storeTarget.productPrice)}`,
+                        },
+                    },
+                ],
+            })
+            .then((orderID:any) => {
+                return orderID;
+            });
+    }, [count]);
+
 
     // const getRealCount = () => {
     //     let currentCount = sessionStorage.getItem("cartPro");
@@ -90,7 +122,7 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
             { paySuccess === true &&
                 <div className="flex justify-center mt-60">
                     <div className="text-center font-bold text-4xl">
-                        <p>Un mail de confirmation vous a été envoyé</p>
+                        <p>Un mail de confirmation vous sera envoyé</p>
                         <p>Merci pour votre confiance !</p>
                     </div>
                 </div>
@@ -136,24 +168,16 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
                                 isOutOfStock === true && <div className="bg-red-500 rounded text-lg font-bold text-white shadow-lg"><p className="mt-5 mb-5 p-2">{stockError}</p></div>
                             }
 
+
                             {
 
 
                                 isOutOfStock === false && <PayPalScriptProvider options={paypalOptions}>
                                     <p className="mt-2 mb-3 text-sm text-gray-600 font-bold"> <span className="text-red-700">*</span>Livraison disponible uniquement en france métropolitaine</p>
                                     <PayPalButtons
+                                        forceReRender={[createOrder]as unknown[]}
                                         style={{ layout: "horizontal", color: "white", shape: "rect", label: "pay", height: 40, "tagline": false }}
-                                        createOrder={(data, actions) => {
-                                            return actions.order.create({
-                                                purchase_units: [
-                                                    {
-                                                        amount: {
-                                                            value: `${computePriceTotal(storeTarget.productPrice)}`,
-                                                        },
-                                                    },
-                                                ],
-                                            });
-                                        }}
+                                        createOrder={createOrder}
                                         onApprove={ (data, actions):Promise<any> => {
                                             console.log(data);
                                             console.log(actions);
