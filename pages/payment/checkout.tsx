@@ -178,15 +178,34 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
                                         forceReRender={[createOrder]as unknown[]}
                                         style={{ layout: "horizontal", color: "white", shape: "rect", label: "pay", height: 40, "tagline": false }}
                                         createOrder={createOrder}
-                                        onApprove={ (data, actions):Promise<any> => {
-                                            console.log(data);
-                                            console.log(actions);
+                                        onApprove={ async (data, actions):Promise<any> => {
+                                            const {orderID, payerID} = data;
+
+                                            let payload = {
+                                                orderID,
+                                                payerID
+                                            }
+                                            const res = await fetch(`${env.API}/api/transactions/${storeTarget.brandName}`, {
+                                                method: "POST",
+                                                body: JSON.stringify(payload)
+                                            });
                                             
-                                            setPaySuccess(true);
-                                            setCount(1);
-                                            return new Promise( (resolve, reject) => {
-                                                resolve("ok");
-                                            })
+                                            if ( res.status === 200 ) {
+                                                setPaySuccess(true);
+                                                setCount(1);
+                                                    return new Promise( (resolve, reject) => {
+                                                            resolve("ok");
+                                                    });
+                                            } else {
+                                                setPaySuccess(false);
+                                                setCount(1);
+                                                alert("Une erreur est survenue lors de votre transaction.")
+                                                return new Promise( (resolve, reject) => {
+                                                        reject("error");
+                                                });
+                                            }
+
+
                                         }}
                                         onError={ (err) => {
                                             alert("Une erreur est survenue lors de votre paiement, veuillez réessayer plus tard.")
@@ -224,7 +243,8 @@ export async function getStaticProps() {
     const data = await (await fetch('https://jsonplaceholder.typicode.com/todos/1')).json()
 
     const env = {
-        PAYPAL_CLIENTID: process.env.PAYPAL_CLIENTID
+        PAYPAL_CLIENTID: process.env.PAYPAL_CLIENTID,
+        API: process.env.API
     };
     // The value of the `props` key will be
     //  passed to the `Home` component
