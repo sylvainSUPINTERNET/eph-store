@@ -84,7 +84,7 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
             .then((orderID:any) => {
                 return orderID;
             });
-    }, [count]);
+    }, [count, computePriceTotal]);
 
 
     // const getRealCount = () => {

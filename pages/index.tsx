@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link'
 import Image from 'next/image'
+import Script from 'next/script'
 
 const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
 
@@ -46,16 +47,18 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
 
     <div className="flex flex-col h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
       <Head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WJY52RQJ2Y"></script>
-        <script>
-        dangerouslySetInnerHTML={{
-          _html:`window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+        <>
+          <Script src="https://www.googletagmanager.com/gtag/js?id=G-WJY52RQJ2Y" />
+          <Script>
+          dangerouslySetInnerHTML={{
+              _html:`window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
 
-          gtag('config', 'G-WJY52RQJ2Y');`
-        }}
-        </script>
+              gtag('config', 'G-WJY52RQJ2Y');`
+            }}
+          </Script>
+        </>
       </Head>
       <ToastContainer />
       <header className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500  h-20 p-5">
