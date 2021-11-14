@@ -189,6 +189,9 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
                                             }
                                             const res = await fetch(`${env.API}/api/transactions/${storeTarget.brandName}`, {
                                                 method: "POST",
+                                                headers: {
+                                                    "Content-type": "application/json"
+                                                },
                                                 body: JSON.stringify(payload)
                                             });
                                             

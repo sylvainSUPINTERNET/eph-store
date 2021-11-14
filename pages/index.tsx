@@ -12,7 +12,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Script from 'next/script'
 
-const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
+const Home = ({ task, storeTarget, env }: { task: any, storeTarget: any, env:any }) => {
 
 
   let [countCart, setCountCart] = useState(0);
@@ -46,21 +46,25 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
   return (
 
     <div className="flex flex-col h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-      <Head>
-        <>
-          <Script src="https://www.googletagmanager.com/gtag/js?id=G-WJY52RQJ2Y" />
-          <Script
-            id="ga"
-            dangerouslySetInnerHTML={{
-              __html: `window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
+      {
+        env.API.includes("localhost") === false && 
+        <Head>
+                <>
+                  <Script src="https://www.googletagmanager.com/gtag/js?id=G-WJY52RQJ2Y" />
+                  <Script
+                    id="ga"
+                    dangerouslySetInnerHTML={{
+                      __html: `window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('js', new Date());
 
-              gtag('config', 'G-WJY52RQJ2Y');`
-            }}
-            />
-        </>
-      </Head>
+                      gtag('config', 'G-WJY52RQJ2Y');`
+                    }}
+                    />
+                </>
+              </Head> 
+      }
+      
       <ToastContainer />
       <header className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500  h-20 p-5">
         <nav className="flex justify-between">
@@ -294,8 +298,12 @@ export async function getStaticProps() {
   // console.log(storeName);
   storeName[0].toUpperCase()
 
+  const env = {
+      API: process.env.API
+  };
   return {
     props: {
+      env,
       task: data,
       storeTarget: {
         "brandName": storeName.charAt(0).toUpperCase() + storeName.slice(1),
