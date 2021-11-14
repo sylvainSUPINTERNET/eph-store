@@ -183,7 +183,9 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
 
                                             let payload = {
                                                 orderID,
-                                                payerID
+                                                payerID,
+                                                mode: env.API.includes("localhost") ? "TEST" : "LIVE",
+                                                amount_ttc: `${computePriceTotal(storeTarget.productPrice)}`
                                             }
                                             const res = await fetch(`${env.API}/api/transactions/${storeTarget.brandName}`, {
                                                 method: "POST",
@@ -197,6 +199,7 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
                                                             resolve("ok");
                                                     });
                                             } else {
+                                                console.log(res);
                                                 setPaySuccess(false);
                                                 setCount(1);
                                                 alert("Une erreur est survenue lors de votre transaction.")
