@@ -49,15 +49,16 @@ const Home = ({ task, storeTarget }: { task: any, storeTarget: any }) => {
       <Head>
         <>
           <Script src="https://www.googletagmanager.com/gtag/js?id=G-WJY52RQJ2Y" />
-          <Script>
-          dangerouslySetInnerHTML={{
-              _html:`window.dataLayer = window.dataLayer || [];
+          <Script
+            id="ga"
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
 
               gtag('config', 'G-WJY52RQJ2Y');`
             }}
-          </Script>
+            />
         </>
       </Head>
       <ToastContainer />
