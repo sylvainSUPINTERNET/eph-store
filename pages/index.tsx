@@ -140,7 +140,7 @@ const Home = ({ task, storeTarget, env }: { task: any, storeTarget: any, env:any
                   
                   <div className="p-5">
                   <Image loader={({src, width, quality}) => {
-                    return `${storeTarget.pageMainPics[0]}`
+                    return `${point.pic}`
                   }} alt="Main product picture"
                   className="mt-10 rounded-full mb-10" src={"main.png"} width={400} height={400}/>
                   </div>
@@ -287,8 +287,9 @@ export default Home
 
 
 export async function getStaticProps() {
-  // Get external data from the file system, API, DB, etc.
-  const data = await (await fetch('https://jsonplaceholder.typicode.com/todos/1')).json()
+  const env = {
+    API: process.env.API
+};
 
   // The value of the `props` key will be
   //  passed to the `Home` component
@@ -298,37 +299,42 @@ export async function getStaticProps() {
   // console.log(storeName);
   storeName[0].toUpperCase()
 
-  const env = {
-      API: process.env.API
-  };
+  // Get external data from the file system, API, DB, etc.
+  const data = await (await fetch(`${env.API}/api/store/detail/${storeName.charAt(0).toUpperCase() + storeName.slice(1)}`)).json()
+
+
   return {
     props: {
       env,
       task: data,
-      storeTarget: {
-        "brandName": storeName.charAt(0).toUpperCase() + storeName.slice(1),
-        "pageTitle1": "Big title ONE",
-        "mainDescription": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis.",
-        "productName": "Collier anti-perte lumineux à led pour chiens",
-        "pageMainPics": [
-          "https://www.cdiscount.com/pdt2/1/6/3/1/700x700/som2009194913163/rw/led-collier-pour-chiens-lumineux-collier-de-chien.jpg"
-        ],
-        "points": [
-          {
-            "title": "Lorem ipsum",
-            "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis."
-          },
-          {
-            "title": "Lorem ipsum",
-            "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis."
-          },
-          {
-            "title": "Lorem ipsum",
-            "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis."
-          }
-        ],
-        "productPrice": 15.99
-      }
+      storeTarget: data
+      // storeTarget: {
+      //   "brandName": storeName.charAt(0).toUpperCase() + storeName.slice(1),
+      //   "pageTitle1": "Big title ONE",
+      //   "mainDescription": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis.",
+      //   "productName": "Collier anti-perte lumineux à led pour chiens",
+      //   "pageMainPics": [
+      //     "https://www.cdiscount.com/pdt2/1/6/3/1/700x700/som2009194913163/rw/led-collier-pour-chiens-lumineux-collier-de-chien.jpg"
+      //   ],
+      //   "points": [
+      //     {
+      //       "title": "Lorem ipsum",
+      //       "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis.",
+      //       "pic": "https://m.media-amazon.com/images/I/51gAYA3XOyL._AC_SL1000_.jpg"
+      //     },
+      //     {
+      //       "title": "Lorem ipsum",
+      //       "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis.",
+      //       "pic": "https://m.media-amazon.com/images/I/713tIfrU01L._AC_SL1000_.jpg"
+      //     },
+      //     {
+      //       "title": "Lorem ipsum",
+      //       "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis.",
+      //       "pic": "https://m.media-amazon.com/images/I/51gAYA3XOyL._AC_SL1000_.jpg"
+      //     }
+      //   ],
+      //   "productPrice": 15.99
+      // }
     }
   }
 }

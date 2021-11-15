@@ -4,6 +4,7 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { BsPlus } from "react-icons/bs";
 import Link from 'next/link'
 import Image from 'next/image'
+import Select from 'react-select';
 
 
 
@@ -12,7 +13,9 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
     let [stockError, setStockError] = useState("Limite de stock atteint.");
     let [isOutOfStock, setIsOutOfStock] = useState(false);
     let [paySuccess, setPaySuccess] = useState(false);
-
+    let [optionChosen, setOptionChosen] = useState(storeTarget.criteriaOrder[0]);
+    let [limitStock, setLimitStock] = useState(storeTarget.criteriaOrder[0].stockLimit)
+ 
     let computePrice = (price: number): number => {
         return +((price * count).toFixed(2));
     }
@@ -30,11 +33,16 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
     let increaseQuantity = () => {
         let tmp = count + 1;
 
-        if (tmp > storeTarget.stockLimit) {
+        if (tmp > limitStock) {
             setIsOutOfStock(true);
         } else {
             setCount(tmp);
         }
+    }
+
+    let handleChange = (selectedOption:any) => {
+        setOptionChosen(selectedOption);
+        setLimitStock(selectedOption.stockLimit);
     }
 
     let decreaseQuantity = () => {
@@ -132,15 +140,21 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
                 paySuccess === false && 
                 <div className="text-center mt-10">
                 <h1 className="text-center text-4xl mt-10">Commander</h1>
+                <div className="flex justify-center mt-10">
+                <Select className="p-2 w-80" options={storeTarget.criteriaOrder}
+                 defaultValue={storeTarget.criteriaOrder[0]}
+                  onChange={handleChange}
+                  value={optionChosen}/>
+                </div>
                 <div className="flex justify-center ">
                     <div className="shadow-lg p-5 max-w-xl rounded mt-5 mb-5 flex-1 ">
-                        <p className="ml-3 text-base mb-5 mt-3 font-bold ">{storeTarget.productName}</p>
+                        <p className="ml-3 text-base mb-5 mt-3 font-bold ">{optionChosen.label}</p>
                         <div className="flex  shadow-lg p-5">
                             <Image loader={({src, width, quality}) => {
-                                return `${storeTarget.pageMainPics[0]}`
+                                return `${optionChosen.pic}`
                             }} 
                             src={"product.png"} className="rounded shadow-lg" height={256} width={256}/>
-                            <p className="ml-3 text-base">{storeTarget.checkoutDescription}</p>
+                            <p className="ml-3 text-base">{optionChosen.checkoutDescription}</p>
                         </div>
                         <div className="shadow-lg p-5">
                             <div className="flex justify-center">
@@ -202,7 +216,6 @@ const CheckoutPaypal = ({ task, storeTarget, env }: { task: any, storeTarget: an
                                                             resolve("ok");
                                                     });
                                             } else {
-                                                console.log(res);
                                                 setPaySuccess(false);
                                                 setCount(1);
                                                 alert("Une erreur est survenue lors de votre transaction.")
@@ -245,9 +258,6 @@ export default CheckoutPaypal;
 
 
 export async function getStaticProps() {
-    // Get external data from the file system, API, DB, etc.
-    const data = await (await fetch('https://jsonplaceholder.typicode.com/todos/1')).json()
-
     const env = {
         PAYPAL_CLIENTID: process.env.PAYPAL_CLIENTID,
         API: process.env.API
@@ -256,9 +266,14 @@ export async function getStaticProps() {
     //  passed to the `Home` component
 
     let storeName: string = (process.env.STORE_NAME as string);
+
+    const data = await (await fetch(`${env.API}/api/store/detail/${storeName.charAt(0).toUpperCase() + storeName.slice(1)}`)).json()
+
     // storeName.charAt(0).toUpperCase();
     // console.log(storeName);
     storeName[0].toUpperCase()
+
+    
     return {
         props: {
             env,
@@ -266,7 +281,6 @@ export async function getStaticProps() {
                 "brandName": storeName.charAt(0).toUpperCase() + storeName.slice(1),
                 "pageTitle1": "Big title ONE",
                 "productName": "Collier anti-perte lumineux à led pour chiens",
-                "globalDescAndCheckout": "Collier pour chien lumineux, large, couleur verte",
                 "checkoutDescription": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a",
                 "pageMainPics": [
                     "https://www.cdiscount.com/pdt2/1/6/3/1/700x700/som2009194913163/rw/led-collier-pour-chiens-lumineux-collier-de-chien.jpg"
@@ -283,6 +297,22 @@ export async function getStaticProps() {
                     {
                         "title": "Lorem ipsum",
                         "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis."
+                    }
+                ],
+                "criteriaOrder": [
+                    {
+                        "label": "LED rouge",
+                        "value": "LED rouge",
+                        "pic": "https://m.media-amazon.com/images/I/51gAYA3XOyL._AC_SL1000_.jpg",
+                        "checkoutDescription": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a",
+                        "stockLimit": 5
+                    },
+                    {
+                        "label": "LED verte",
+                        "value": "LED verte",
+                        "pic": "https://m.media-amazon.com/images/I/51eg1BGPGCL._AC_SL1000_.jpg",
+                        "checkoutDescription": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a",
+                        "stockLimit": 2
                     }
                 ],
                 "productPrice": 15.99,
