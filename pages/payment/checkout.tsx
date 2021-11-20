@@ -273,52 +273,53 @@ export async function getStaticProps() {
     // console.log(storeName);
     storeName[0].toUpperCase()
 
-    
+    // console.log(data);
     return {
         props: {
             env,
-            storeTarget: {
-                "brandName": storeName.charAt(0).toUpperCase() + storeName.slice(1),
-                "pageTitle1": "Big title ONE",
-                "productName": "Collier anti-perte lumineux à led pour chiens",
-                "checkoutDescription": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a",
-                "pageMainPics": [
-                    "https://www.cdiscount.com/pdt2/1/6/3/1/700x700/som2009194913163/rw/led-collier-pour-chiens-lumineux-collier-de-chien.jpg"
-                ],
-                "points": [
-                    {
-                        "title": "Lorem ipsum",
-                        "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis."
-                    },
-                    {
-                        "title": "Lorem ipsum",
-                        "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis."
-                    },
-                    {
-                        "title": "Lorem ipsum",
-                        "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis."
-                    }
-                ],
-                "criteriaOrder": [
-                    {
-                        "label": "LED rouge",
-                        "value": "LED rouge",
-                        "pic": "https://m.media-amazon.com/images/I/51gAYA3XOyL._AC_SL1000_.jpg",
-                        "checkoutDescription": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a",
-                        "stockLimit": 5
-                    },
-                    {
-                        "label": "LED verte",
-                        "value": "LED verte",
-                        "pic": "https://m.media-amazon.com/images/I/51eg1BGPGCL._AC_SL1000_.jpg",
-                        "checkoutDescription": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a",
-                        "stockLimit": 2
-                    }
-                ],
-                "productPrice": 15.99,
-                "shippingFare": 1.99,
-                "stockLimit": 10
-            }
+            storeTarget: data
+            // storeTarget: {
+            //     "brandName": storeName.charAt(0).toUpperCase() + storeName.slice(1),
+            //     "pageTitle1": "Big title ONE",
+            //     "productName": "Collier anti-perte lumineux à led pour chiens",
+            //     "checkoutDescription": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a",
+            //     "pageMainPics": [
+            //         "https://www.cdiscount.com/pdt2/1/6/3/1/700x700/som2009194913163/rw/led-collier-pour-chiens-lumineux-collier-de-chien.jpg"
+            //     ],
+            //     "points": [
+            //         {
+            //             "title": "Lorem ipsum",
+            //             "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis."
+            //         },
+            //         {
+            //             "title": "Lorem ipsum",
+            //             "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis."
+            //         },
+            //         {
+            //             "title": "Lorem ipsum",
+            //             "content": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a, sodales ullamcorper purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam turpis, sodales id fermentum sed, rutrum id nunc. Praesent blandit leo quis ultrices bibendum. Vestibulum eget vehicula felis."
+            //         }
+            //     ],
+            //     "criteriaOrder": [
+            //         {
+            //             "label": "LED rouge",
+            //             "value": "LED rouge",
+            //             "pic": "https://m.media-amazon.com/images/I/51gAYA3XOyL._AC_SL1000_.jpg",
+            //             "checkoutDescription": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a",
+            //             "stockLimit": 5
+            //         },
+            //         {
+            //             "label": "LED verte",
+            //             "value": "LED verte",
+            //             "pic": "https://m.media-amazon.com/images/I/51eg1BGPGCL._AC_SL1000_.jpg",
+            //             "checkoutDescription": "orem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ligula ipsum, tincidunt eu magna a",
+            //             "stockLimit": 2
+            //         }
+            //     ],
+            //     "productPrice": 15.99,
+            //     "shippingFare": 1.99,
+            //     "stockLimit": 10
+            // }
         }
     }
 };
