@@ -8,10 +8,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
     useEffect(() => {
       const handleRouteChange = (url:string) => {
-        //@ts-ignore
-        window.gtag('config', "G-WJY52RQJ2Y", {
-          page_path: url,
-        })
+        if (window && window.gtag) {
+          window.gtag('config', "G-WJY52RQJ2Y", {
+            page_path: url,
+          })
+        }
       }
       router.events.on('routeChangeComplete', handleRouteChange)
       return () => {
