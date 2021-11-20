@@ -49,20 +49,23 @@ const Home = ({ task, storeTarget, env }: { task: any, storeTarget: any, env:any
       {
         env.API.includes("localhost") === false && 
         <Head>
-                <>
-                  <Script src="https://www.googletagmanager.com/gtag/js?id=G-WJY52RQJ2Y" />
-                  <Script
-                    id="ga"
-                    dangerouslySetInnerHTML={{
-                      __html: `window.dataLayer = window.dataLayer || [];
-                      function gtag(){dataLayer.push(arguments);}
-                      gtag('js', new Date());
-
-                      gtag('config', 'G-WJY52RQJ2Y');`
-                    }}
-                    />
-                </>
-              </Head> 
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=G-WJY52RQJ2Y`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-WJY52RQJ2Y', {
+              page_path: window.location.pathname,
+            });
+          `,
+            }}
+          />
+        </Head>
       }
       
       <ToastContainer />
